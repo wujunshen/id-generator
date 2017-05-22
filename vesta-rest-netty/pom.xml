@@ -9,26 +9,17 @@
 		<version>0.0.1</version>
 	</parent>
 
-	<groupId>com.robert.vesta</groupId>
 	<artifactId>vesta-rest-netty</artifactId>
-	<version>0.0.1</version>
 	<name>vesta-rest-netty</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>com.robert.vesta</groupId>
 			<artifactId>vesta-intf</artifactId>
-			<version>0.0.1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring</artifactId>
@@ -36,26 +27,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>com.robert.vesta</groupId>
 			<artifactId>vesta-service</artifactId>
-			<version>0.0.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<version>5.0.0.Alpha1</version>
 		</dependency>
-
 		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.4</version>
-			<classifier>jdk15</classifier>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -70,16 +53,21 @@
 							<mainClass>com.robert.vesta.rest.netty.VestaRestNettyServer</mainClass>
 						</manifest>
 					</archive>
+					<excludes>
+						<exclude>*.sh</exclude>
+						<exclude>*.xml</exclude>
+						<exclude>*.properties</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>2.5.5</version>
 				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
 					<descriptors>
-						<descriptor>assembly.xml</descriptor>
+						<descriptor>${basedir}/assembly.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>

@@ -25,14 +25,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import net.sf.json.JSONObject;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.alibaba.fastjson.JSONObject;
 import com.robert.vesta.service.bean.Id;
 import com.robert.vesta.service.intf.IdService;
 
@@ -137,7 +135,8 @@ public class VestaRestNettyServerHandler extends ChannelHandlerAdapter {
 			if (log.isTraceEnabled())
 				log.trace("Explained id: " + ido);
 
-			JSONObject jo = JSONObject.fromObject(ido);
+//			JSONObject jo = JSONObject.fromObject(ido);
+			JSONObject jo = (JSONObject) JSONObject.toJSON(ido);
 
 			sbContent.append(jo);
 		} else if (ACTION_TRANSTIME.equals(uri.getPath())) {

@@ -1,33 +1,39 @@
 <assembly>
-	<id>bin</id>
-
+	<id>package</id>
 	<formats>
 		<format>tar.gz</format>
 	</formats>
-
-	<includeBaseDirectory>true</includeBaseDirectory>
-
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<useProjectArtifact>true</useProjectArtifact>
+			<outputDirectory>lib</outputDirectory>
+		</dependencySet>
+	</dependencySets>
 	<fileSets>
 		<fileSet>
-			<outputDirectory>bin</outputDirectory>
-			<directory>${basedir}/src/main/scripts/</directory>
-			<fileMode>755</fileMode>
+			<filtered>true</filtered>
+			<directory>src/main/webapp</directory>
+			<outputDirectory>/config</outputDirectory>
 		</fileSet>
-
 		<fileSet>
-			<outputDirectory>lib</outputDirectory>
-			<directory>${basedir}/target</directory>
-			
-			<includes>
-				<include>*.jar</include>
-			</includes>
+			<filtered>true</filtered>
+			<directory>src/main/resources</directory>
+			<outputDirectory>/config</outputDirectory>
 		</fileSet>
-
+		<fileSet>
+			<filtered>true</filtered>
+			<directory>src/main/deploy</directory>
+			<outputDirectory>/bin</outputDirectory>
+			<fileMode>0755</fileMode>
+            <directoryMode>0755</directoryMode>
+		</fileSet>
 		<fileSet>
 			<outputDirectory>/</outputDirectory>
 			<includes>
-				<include>${basedir}/README.MD</include>
+				<include>${basedir}/README.txt</include>
 			</includes>
 		</fileSet>
 	</fileSets>
+
 </assembly>

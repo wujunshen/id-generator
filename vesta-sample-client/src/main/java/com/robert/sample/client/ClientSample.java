@@ -2,7 +2,6 @@ package com.robert.sample.client;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.robert.vesta.service.bean.Id;
 import com.robert.vesta.service.intf.IdService;
 

@@ -8,34 +8,23 @@
 		<artifactId>vesta-id-generator</artifactId>
 		<version>0.0.1</version>
 	</parent>
-
-	<groupId>com.robert.vesta</groupId>
 	<artifactId>vesta-server</artifactId>
-	<version>0.0.1</version>
 	<name>vesta-server</name>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.robert.vesta</groupId>
 			<artifactId>vesta-service</artifactId>
-			<version>0.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
-			<version>2.5.3</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring</artifactId>
@@ -57,16 +46,21 @@
 							<mainClass>com.robert.vesta.server.VestaServer</mainClass>
 						</manifest>
 					</archive>
+					<excludes>
+						<exclude>*.sh</exclude>
+						<exclude>*.xml</exclude>
+						<exclude>*.properties</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>2.5.5</version>
 				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
 					<descriptors>
-						<descriptor>assembly.xml</descriptor>
+						<descriptor>${basedir}/assembly.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
