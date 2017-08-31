@@ -9,9 +9,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Time:上午1:13 <br>
  * Mail:frank_wjs@hotmail.com <br>
  */
-@ConfigurationProperties(prefix = "vesta")
+@ConfigurationProperties(prefix = "generate")
 @Data
-public class Vesta {
-    private String machine;
+public class Generate {
+    private String worker;
 }
 

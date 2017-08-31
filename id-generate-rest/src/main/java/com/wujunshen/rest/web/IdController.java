@@ -32,7 +32,6 @@ public class IdController {
         return DateFormatUtils.format(idService.transTime(time), "yyyy-MM-dd HH:mm:ss");
     }
 
-
     @PostMapping("/id")
     public long makeId(@RequestBody MakeID makeID) {
         long worker = makeID.getMachine();

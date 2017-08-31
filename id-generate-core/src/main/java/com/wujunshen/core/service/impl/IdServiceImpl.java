@@ -18,13 +18,13 @@ public class IdServiceImpl implements IdService {
     private static long sequence = 0L;
     //机器ID(0-1023)
     private final long workerId;
-
+    //各种元数据
     protected IdMeta idMeta;
 
     /**
      * 构造
      *
-     * @param workerId 机器ID(0-31)
+     * @param workerId 机器ID((0-1023)
      */
     public IdServiceImpl(long workerId) {
         if (workerId > IdMeta.MAX_ID || workerId < 0) {
@@ -98,22 +98,48 @@ public class IdServiceImpl implements IdService {
         return System.currentTimeMillis();
     }
 
+    /**
+     * 对id进行解析
+     *
+     * @param id 生成的ID
+     * @return 封装的ID类
+     */
     public ID expId(long id) {
         IdConverter idConverter = new IdConverterImpl();
         return idConverter.convert(id);
     }
 
+    /**
+     * 对时间戳单独进行解析
+     *
+     * @param time 时间戳
+     * @return 生成的Date时间
+     */
     public Date transTime(long time) {
         return new Date(time + IdMeta.START_TIME);
     }
 
-    public long makeId(long time, long seq) {
-        return makeId(time, workerId, seq);
+    /**
+     * 根据时间戳和序列号生成ID
+     *
+     * @param timeStamp 时间戳
+     * @param sequence  序列号
+     * @return 生成的ID
+     */
+    public long makeId(long timeStamp, long sequence) {
+        return makeId(timeStamp, workerId, sequence);
     }
 
-    public long makeId(long time, long worker, long seq) {
+    /**
+     * 根据时间戳、机器ID和序列号生成ID
+     *
+     * @param timeStamp 时间戳
+     * @param worker    机器ID
+     * @param sequence  序列号
+     * @return 生成的ID
+     */
+    public long makeId(long timeStamp, long worker, long sequence) {
         IdConverter idConverter = new IdConverterImpl();
-        return idConverter.convert(new ID(time, worker, seq));
+        return idConverter.convert(new ID(timeStamp, worker, sequence));
     }
-
 }
