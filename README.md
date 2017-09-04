@@ -41,7 +41,8 @@ ID生成算法有很多种，此项目是严格遵循Twitter开源的雪花算�
 
 我设置的启动端口为10010，上下文名字为myID
 
-在浏览器窗口输入http://localhost:10010/myID/swagger-ui.html，界面如下
+在浏览器窗口输入http://localhost:10010/myID/swagger-ui.html
+界面如下
 
 ![Snip20170901_19.png-121kB][4]
 
