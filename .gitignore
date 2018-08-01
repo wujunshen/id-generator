@@ -2,3 +2,5 @@
 .idea/
 id-generate-core/id-generate-core.iml
 id-generate-rest/id-generate-rest.iml
+id-generate-core/target/
+id-generate-rest/target/
