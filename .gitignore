@@ -1,1 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
+.idea/
+id-generate-core/id-generate-core.iml
+id-generate-rest/id-generate-rest.iml
