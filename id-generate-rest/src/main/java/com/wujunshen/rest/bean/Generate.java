@@ -12,6 +12,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "generate")
 @Data
 public class Generate {
-    private String worker;
+  private String worker;
 }
-

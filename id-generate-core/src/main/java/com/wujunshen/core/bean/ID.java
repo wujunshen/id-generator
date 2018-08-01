@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ID implements Serializable {
-    private long timeStamp;
-    private long worker;
-    private long sequence;
+  private long timeStamp;
+  private long worker;
+  private long sequence;
 }

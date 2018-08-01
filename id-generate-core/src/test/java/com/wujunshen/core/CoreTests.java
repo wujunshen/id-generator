@@ -1,4 +1,4 @@
-package com.wujunshen.rest;
+package com.wujunshen.core;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,10 +7,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RestApplicationTests {
+public class CoreTests {
 
-    @Test
-    public void contextLoads() {
-    }
-
+  @Test
+  public void contextLoads() {}
 }

@@ -19,74 +19,74 @@ import java.util.Set;
  */
 @Slf4j
 public class SnowflakeIdWorkerTest {
+  private Set<Long> set;
+
+  @Before
+  public void setUp() {
+    set = new HashSet<>();
+  }
+
+  @After
+  public void tearDown() {
+    set = null;
+  }
+
+  @Test
+  public void nextId() {
+    List<SnowflakeIdWorker> snowflakeIdWorkers = new ArrayList<>();
+    for (int i = 0; i < 32; i++) {
+      for (int j = 0; j < 32; j++) {
+        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(i, j);
+        snowflakeIdWorkers.add(idWorker);
+      }
+    }
+
+    for (SnowflakeIdWorker snowflakeIdWorker : snowflakeIdWorkers) {
+      IdWorkThread idWorkThread = new IdWorkThread(set, snowflakeIdWorker);
+      Thread t = new Thread(idWorkThread);
+      t.setDaemon(true);
+      t.start();
+    }
+
+    try {
+      Thread.sleep(1);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void stressTest() throws Exception {
+    loop(50000000);
+    loop(50000000);
+    loop(50000000);
+  }
+
+  private void loop(int idNum) {
+    SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
+    long start = System.currentTimeMillis();
+    for (int i = 0; i < idNum; i++) {
+      long id = idWorker.nextId();
+      // log.info("{}", id);
+    }
+    long duration = System.currentTimeMillis() - start;
+    log.info("total time:{}ms,speed is:{}/ms", duration, idNum / duration);
+  }
+
+  @AllArgsConstructor
+  static class IdWorkThread implements Runnable {
     private Set<Long> set;
+    private SnowflakeIdWorker snowflakeIdWorker;
 
-    @Before
-    public void setUp() throws Exception {
-        set = new HashSet<>();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        set = null;
-    }
-
-    @Test
-    public void nextId() throws Exception {
-        List<SnowflakeIdWorker> snowflakeIdWorkers = new ArrayList<>();
-        for (int i = 0; i < 32; i++) {
-            for (int j = 0; j < 32; j++) {
-                SnowflakeIdWorker idWorker = new SnowflakeIdWorker(i, j);
-                snowflakeIdWorkers.add(idWorker);
-            }
+    @Override
+    public void run() {
+      while (true) {
+        long id = snowflakeIdWorker.nextId();
+        log.info("{}", id);
+        if (!set.add(id)) {
+          log.info("duplicate:{}", id);
         }
-
-        for (SnowflakeIdWorker snowflakeIdWorker : snowflakeIdWorkers) {
-            IdWorkThread idWorkThread = new IdWorkThread(set, snowflakeIdWorker);
-            Thread t = new Thread(idWorkThread);
-            t.setDaemon(true);
-            t.start();
-        }
-
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+      }
     }
-
-    @Test
-    public void stressTest() throws Exception {
-        loop(50000000);
-        loop(50000000);
-        loop(50000000);
-    }
-
-    private void loop(int idNum) throws Exception {
-        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < idNum; i++) {
-            long id = idWorker.nextId();
-            //log.info("{}", id);
-        }
-        long duration = System.currentTimeMillis() - start;
-        log.info("total time:{}ms,speed is:{}/ms", duration, idNum / duration);
-    }
-
-    @AllArgsConstructor
-    static class IdWorkThread implements Runnable {
-        private Set<Long> set;
-        private SnowflakeIdWorker snowflakeIdWorker;
-
-        @Override
-        public void run() {
-            while (true) {
-                long id = snowflakeIdWorker.nextId();
-                log.info("{}", id);
-                if (!set.add(id)) {
-                    log.info("duplicate:{}", id);
-                }
-            }
-        }
-    }
+  }
 }

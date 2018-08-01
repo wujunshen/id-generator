@@ -14,19 +14,18 @@ import javax.annotation.Resource;
 @SpringBootApplication
 @EnableConfigurationProperties(Generate.class)
 @Slf4j
-public class RestApplication {
-    @Resource
-    private Generate generate;
+public class RestAPI {
+  @Resource private Generate generate;
 
-    public static void main(String[] args) {
-        log.info("start execute RestApplication....\n");
-        SpringApplication.run(RestApplication.class, args);
-        log.info("end execute RestApplication....\n");
-    }
+  public static void main(String[] args) {
+    log.info("start execute RestApplication....\n");
+    SpringApplication.run(RestAPI.class, args);
+    log.info("end execute RestApplication....\n");
+  }
 
-    @Bean(name = "idService")
-    public IdService idService() {
-        log.info("worker id is :{}", generate.getWorker());
-        return new IdServiceImpl(Long.parseLong(generate.getWorker()));
-    }
+  @Bean(name = "idService")
+  public IdService idService() {
+    log.info("worker id is :{}", generate.getWorker());
+    return new IdServiceImpl(Long.parseLong(generate.getWorker()));
+  }
 }

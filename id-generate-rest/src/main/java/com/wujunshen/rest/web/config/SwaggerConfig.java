@@ -26,30 +26,31 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("接口管理")
-                .description("ID生成API接口")
-                .contact(new Contact("frankwoo(吴峻申)", "http://darkranger.iteye.com/", "frank_wjs@hotmail.com"))
-                .license("Apache License Version 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .termsOfServiceUrl("https://github.com/wujunshen/vesta-id-generator")
-                .version("0.0.1-SNAPSHOT")
-                .build();
-    }
+  private ApiInfo apiInfo() {
+    return new ApiInfoBuilder()
+        .title("接口管理")
+        .description("ID生成API接口")
+        .contact(
+            new Contact("frankwoo(吴峻申)", "http://darkranger.iteye.com/", "frank_wjs@hotmail.com"))
+        .license("Apache License Version 2.0")
+        .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+        .termsOfServiceUrl("https://github.com/wujunshen/vesta-id-generator")
+        .version("0.0.1-SNAPSHOT")
+        .build();
+  }
 
-    @Bean
-    public Docket idApi() {
-        // exclude-path处理
-        List<Predicate<String>> excludePath = new ArrayList<>();
-        excludePath.add(PathSelectors.ant("/error"));
+  @Bean
+  public Docket idApi() {
+    // exclude-path处理
+    List<Predicate<String>> excludePath = new ArrayList<>();
+    excludePath.add(PathSelectors.ant("/error"));
 
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("id-generator")
-                .apiInfo(apiInfo())
-                .select()
-                .paths(regex("/.*"))
-                .paths(Predicates.not(Predicates.or(excludePath)))
-                .build();
-    }
+    return new Docket(DocumentationType.SWAGGER_2)
+        .groupName("id-generator")
+        .apiInfo(apiInfo())
+        .select()
+        .paths(regex("/.*"))
+        .paths(Predicates.not(Predicates.or(excludePath)))
+        .build();
+  }
 }
